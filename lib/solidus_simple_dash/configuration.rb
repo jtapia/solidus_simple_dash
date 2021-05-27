@@ -1,17 +1,23 @@
-module SolidusSimpleDash
-  class Configuration < Spree::Preferences::Configuration
-    preference :limit, :integer, default: 10
+# frozen_string_literal: true
 
-    if Spree.respond_to?(:solidus_version) && Spree.solidus_version > '1.4'
-      Spree::Backend::Config.configure do |config|
-        # This is the email submenu, useful for store users
-        config.menu_items << config.class::MenuItem.new(
-          [:overview],
-          'bar-chart',
-          label: 'overview',
-          condition: -> { can?(:manage, Spree::Overview) }
-        )
-      end
+module SolidusSimpleDash
+  class Configuration
+    OVERVIEW = %i[overview].freeze
+    # Define here the settings for this extension, e.g.:
+    #
+    # attr_accessor :my_setting
+    attr_accessor :limit
+  end
+
+  class << self
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    alias config configuration
+
+    def configure
+      yield configuration
     end
   end
 end
