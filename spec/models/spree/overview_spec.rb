@@ -12,10 +12,10 @@ describe Spree::Overview, type: :model do
     [create(:line_item, variant: product.master, quantity: 5)]
   end
   let(:params_with_count) do
-    { from: (Time.zone.now.to_date - 1.week).to_s(:db), value: 'Count' }
+    { from: (Time.zone.now.to_date - 1.week).to_fs(:db), value: 'Count' }
   end
   let(:params_with_value) do
-    { from: (Time.zone.now.to_date - 1.week).to_s(:db), value: 'Value' }
+    { from: (Time.zone.now.to_date - 1.week).to_fs(:db), value: 'Value' }
   end
   let(:overview) { described_class.new(params_with_count) }
 

@@ -73,7 +73,7 @@ module Spree
 
       def set_date
         params.merge!({
-          from: (Time.zone.now.to_date - 1.week).to_s(:db),
+          from: (Time.zone.now.to_date - 1.week).to_fs(:db),
           value: 'Count'
         })
       end
@@ -90,20 +90,20 @@ module Spree
 
         dates = case params[:name]
                 when '7_days'
-                  { from: (Time.zone.now.to_date - 1.week).to_s(:db) }
+                  { from: (Time.zone.now.to_date - 1.week).to_fs(:db) }
                 when '14_days'
-                  { from: (Time.zone.now.to_date - 2.weeks).to_s(:db) }
+                  { from: (Time.zone.now.to_date - 2.weeks).to_fs(:db) }
                 when 'this_month'
-                  { from: from.to_s(:db),
-                    to: to.to_s(:db) }
+                  { from: from.to_fs(:db),
+                    to: to.to_fs(:db) }
                 when 'last_month'
-                  { from: (from - 1.month).to_s(:db),
-                    to: (to - 1.month).to_s(:db) }
+                  { from: (from - 1.month).to_fs(:db),
+                    to: (to - 1.month).to_fs(:db) }
                 when 'this_year'
-                  { from: Date.new(Time.zone.now.year, 1, 1).to_s(:db) }
+                  { from: Date.new(Time.zone.now.year, 1, 1).to_fs(:db) }
                 when 'last_year'
-                  { from: Date.new(Time.zone.now.year - 1, 1, 1).to_s(:db),
-                    to: Date.new(Time.zone.now.year - 1, 12, -1).to_s(:db) }
+                  { from: Date.new(Time.zone.now.year - 1, 1, 1).to_fs(:db),
+                    to: Date.new(Time.zone.now.year - 1, 12, -1).to_fs(:db) }
                 end
 
         params.merge!(dates)
